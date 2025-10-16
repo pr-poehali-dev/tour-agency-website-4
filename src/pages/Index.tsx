@@ -194,10 +194,21 @@ const Index = () => {
               <a href="#reviews" className="text-foreground hover:text-accent transition-colors font-medium">Отзывы</a>
               <a href="#contact" className="text-foreground hover:text-accent transition-colors font-medium">Контакты</a>
             </div>
-            <Button className="bg-accent hover:bg-accent/90 text-white">
-              <Icon name="Phone" size={16} className="mr-2" />
-              Связаться
-            </Button>
+            <div className="flex items-center gap-4">
+              <a href="tel:+79094264040" className="hidden lg:flex items-center gap-2 text-foreground hover:text-accent transition-colors font-medium">
+                <Icon name="Phone" size={18} />
+                <span>+7 909 426-40-40</span>
+              </a>
+              <a 
+                href="https://wa.me/79094264040" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white px-4 py-2 rounded-lg transition-colors"
+              >
+                <Icon name="MessageCircle" size={16} />
+                <span className="hidden sm:inline">WhatsApp</span>
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -705,7 +716,9 @@ const Index = () => {
               <CardContent className="pt-6">
                 <Icon name="Phone" size={32} className="text-accent mx-auto mb-3" />
                 <p className="font-medium mb-1">Телефон</p>
-                <p className="text-muted-foreground">+7 (495) 123-45-67</p>
+                <a href="tel:+79094264040" className="text-accent hover:underline font-medium">
+                  +7 909 426-40-40
+                </a>
               </CardContent>
             </Card>
             <Card className="text-center">
@@ -768,6 +781,17 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <a
+        href="https://wa.me/79094264040"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-16 h-16 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-110 animate-fade-in"
+        aria-label="Написать в WhatsApp"
+      >
+        <Icon name="MessageCircle" size={28} />
+        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse"></span>
+      </a>
 
       <Dialog open={bookingDialogOpen} onOpenChange={setBookingDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
