@@ -1,0 +1,25 @@
+{
+  "tests": [
+    {
+      "name": "Get tours list",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "tours": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Update tours from operators",
+      "method": "POST",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

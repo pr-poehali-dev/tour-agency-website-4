@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -26,8 +26,48 @@ const Index = () => {
   const [calculatorGuests, setCalculatorGuests] = useState(2);
   const [calculatorDays, setCalculatorDays] = useState(7);
   const [calculatorComfort, setCalculatorComfort] = useState('standard');
+  const [tours, setTours] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
-  const tours = [
+  const loadTours = async () => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/f1e6a4a9-eed3-48e5-be96-ca476549ccbe');
+      const data = await response.json();
+      if (data.tours && data.tours.length > 0) {
+        setTours(data.tours);
+        setLastUpdate(new Date());
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('Ошибка загрузки туров:', error);
+      setLoading(false);
+    }
+  };
+
+  const updateToursFromOperators = async () => {
+    try {
+      await fetch('https://functions.poehali.dev/f1e6a4a9-eed3-48e5-be96-ca476549ccbe', {
+        method: 'POST'
+      });
+      await loadTours();
+    } catch (error) {
+      console.error('Ошибка обновления туров:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadTours();
+    updateToursFromOperators();
+    
+    const interval = setInterval(() => {
+      updateToursFromOperators();
+    }, 15 * 60 * 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const staticTours = [
     { id: 1, title: 'Мальдивы Deluxe', destination: 'Мальдивы', country: 'maldives', price: 450000, priceFormatted: '450 000 ₽', duration: '7 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Водные бунгало 5★, снорклинг, SPA', category: 'beach' },
     { id: 2, title: 'Париж + Рим', destination: 'Франция + Италия', country: 'europe', price: 320000, priceFormatted: '320 000 ₽', duration: '10 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Экскурсии, музеи, мишленовские рестораны', category: 'culture' },
     { id: 3, title: 'Швейцарские Альпы', destination: 'Швейцария', country: 'europe', price: 580000, priceFormatted: '580 000 ₽', duration: '5 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/0e47a49c-602b-46bd-9b38-422c14345e66.jpg', description: 'Горные лыжи, шале люкс, частный инструктор', category: 'mountains' },
@@ -48,6 +88,8 @@ const Index = () => {
     { id: 18, title: 'Скандинавия 4 страны', destination: 'Скандинавия', country: 'europe', price: 390000, priceFormatted: '390 000 ₽', duration: '11 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Норвегия, Швеция, Дания, Финляндия', category: 'culture' }
   ];
 
+  const displayTours = tours.length > 0 ? tours : staticTours;
+
   const services = [
     { id: 1, title: 'Визы', icon: 'FileText', description: 'Оформление туристических, рабочих и бизнес-виз', price: 'от 5 000 ₽' },
     { id: 2, title: 'Карты АТС', icon: 'CreditCard', description: 'Азиатские платёжные карты для путешествий', price: 'от 3 000 ₽' },
@@ -57,7 +99,7 @@ const Index = () => {
     { id: 6, title: 'Страхование', icon: 'Shield', description: 'Медицинская страховка для путешествий', price: 'от 1 000 ₽' }
   ];
 
-  const filteredTours = tours.filter(tour => {
+  const filteredTours = displayTours.filter(tour => {
     const matchesDestination = selectedDestination === 'all' || tour.country === selectedDestination;
     const matchesCategory = selectedCategory === 'all' || tour.category === selectedCategory;
     const matchesPrice = tour.price >= priceRange[0] && tour.price <= priceRange[1];
@@ -162,6 +204,19 @@ const Index = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Эксклюзивные предложения для роскошного отдыха
             </p>
+            {lastUpdate && (
+              <div className="flex items-center justify-center gap-2 mt-4 text-sm text-muted-foreground">
+                <Icon name="RefreshCw" size={14} className="animate-pulse text-accent" />
+                <span>Последнее обновление: {lastUpdate.toLocaleTimeString('ru-RU')}</span>
+                <span className="text-accent">• Обновляется каждые 15 минут</span>
+              </div>
+            )}
+            {loading && (
+              <div className="flex items-center justify-center gap-2 mt-4 text-accent">
+                <Icon name="Loader2" size={16} className="animate-spin" />
+                <span>Загрузка актуальных предложений...</span>
+              </div>
+            )}
           </div>
 
           <Card className="mb-8 p-6">
@@ -305,10 +360,13 @@ const Index = () => {
                     alt={tour.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                   />
+                  {tour.source && (
+                    <Badge className="absolute top-4 left-4 bg-primary text-white">{tour.source}</Badge>
+                  )}
                   <Badge className="absolute top-4 right-4 bg-accent text-white">Люкс</Badge>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-2xl font-serif">{tour.title}</CardTitle>
+                  <CardTitle className="text-2xl font-handwriting">{tour.title}</CardTitle>
                   <CardDescription className="flex items-center gap-2 text-base">
                     <Icon name="MapPin" size={16} />
                     {tour.destination}
