@@ -29,13 +29,38 @@ const Index = () => {
   const [tours, setTours] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [hotDeals, setHotDeals] = useState<any[]>([]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationDeal, setNotificationDeal] = useState<any>(null);
 
   const loadTours = async () => {
     try {
       const response = await fetch('https://functions.poehali.dev/f1e6a4a9-eed3-48e5-be96-ca476549ccbe');
       const data = await response.json();
       if (data.tours && data.tours.length > 0) {
-        setTours(data.tours);
+        const newTours = data.tours;
+        const previousHotDeals = hotDeals;
+        
+        const currentHotDeals = newTours.filter((tour: any) => 
+          tour.category === 'горящий' || 
+          tour.title?.toLowerCase().includes('горящий') ||
+          tour.discount > 20
+        );
+        
+        if (currentHotDeals.length > previousHotDeals.length) {
+          const newDeal = currentHotDeals.find(
+            (deal: any) => !previousHotDeals.some((prev: any) => prev.id === deal.id)
+          );
+          
+          if (newDeal && tours.length > 0) {
+            setNotificationDeal(newDeal);
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 10000);
+          }
+        }
+        
+        setHotDeals(currentHotDeals);
+        setTours(newTours);
         setLastUpdate(new Date());
       }
       setLoading(false);
@@ -177,6 +202,66 @@ const Index = () => {
         </div>
       </nav>
 
+      {showNotification && notificationDeal && (
+        <div className="fixed top-20 right-4 z-50 animate-slide-in-right">
+          <Card className="w-96 border-2 border-accent shadow-2xl bg-gradient-to-br from-accent/5 to-accent/10">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <Icon name="Flame" size={24} className="text-accent animate-pulse" />
+                  <div className="absolute inset-0 bg-accent/30 blur-lg animate-pulse"></div>
+                </div>
+                <CardTitle className="text-lg text-accent">Горящий тур!</CardTitle>
+                <button 
+                  onClick={() => setShowNotification(false)}
+                  className="ml-auto hover:bg-muted rounded-full p-1 transition-colors"
+                >
+                  <Icon name="X" size={16} />
+                </button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-start gap-3">
+                <img 
+                  src={notificationDeal.image} 
+                  alt={notificationDeal.title}
+                  className="w-20 h-20 rounded-lg object-cover"
+                />
+                <div className="flex-1">
+                  <h4 className="font-bold text-primary mb-1">{notificationDeal.title}</h4>
+                  <p className="text-sm text-muted-foreground">{notificationDeal.destination}</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Badge className="bg-accent text-white">
+                      <Icon name="TrendingDown" size={12} className="mr-1" />
+                      {notificationDeal.discount || 25}%
+                    </Badge>
+                    {notificationDeal.source && (
+                      <Badge variant="outline" className="text-xs">{notificationDeal.source}</Badge>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t">
+                <div>
+                  <p className="text-xs text-muted-foreground">Специальная цена</p>
+                  <p className="text-xl font-bold text-accent">{notificationDeal.priceFormatted}</p>
+                </div>
+                <Button 
+                  size="sm" 
+                  className="bg-accent hover:bg-accent/90 text-white"
+                  onClick={() => {
+                    handleBooking(notificationDeal);
+                    setShowNotification(false);
+                  }}
+                >
+                  Забронировать
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <section id="home" className="pt-32 pb-20 px-4 animate-fade-in">
         <div className="container mx-auto text-center">
           <h1 className="text-5xl md:text-7xl font-handwriting font-bold text-primary mb-6 leading-tight">
@@ -196,6 +281,79 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {hotDeals.length > 0 && (
+        <section className="py-16 px-4 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10">
+          <div className="container mx-auto">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <Icon name="Flame" size={32} className="text-accent animate-pulse" />
+                <h2 className="text-4xl md:text-5xl font-handwriting font-bold text-accent">Горящие туры</h2>
+                <Icon name="Flame" size={32} className="text-accent animate-pulse" />
+              </div>
+              <p className="text-lg text-muted-foreground">
+                Успейте забронировать! Специальные предложения с максимальной скидкой
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {hotDeals.slice(0, 3).map((deal, index) => (
+                <Card key={deal.id} className="overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-accent/30 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="relative h-56 overflow-hidden">
+                    <img 
+                      src={deal.image} 
+                      alt={deal.title}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge className="bg-red-600 text-white">
+                        <Icon name="Flame" size={14} className="mr-1" />
+                        Горит
+                      </Badge>
+                      {deal.discount && (
+                        <Badge className="bg-accent text-white text-base px-3 py-1">
+                          -{deal.discount}%
+                        </Badge>
+                      )}
+                    </div>
+                    {deal.source && (
+                      <Badge className="absolute top-3 right-3 bg-primary text-white">{deal.source}</Badge>
+                    )}
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-xl font-handwriting">{deal.title}</CardTitle>
+                    <CardDescription className="flex items-center gap-2">
+                      <Icon name="MapPin" size={16} />
+                      {deal.destination}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Icon name="Calendar" size={16} />
+                        <span>{deal.duration}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{deal.description}</p>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex items-center justify-between pt-4 border-t">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Специальная цена</p>
+                      <p className="text-2xl font-bold text-accent">{deal.priceFormatted}</p>
+                    </div>
+                    <Button 
+                      className="bg-accent hover:bg-accent/90 text-white"
+                      onClick={() => handleBooking(deal)}
+                    >
+                      Успеть!
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section id="tours" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
