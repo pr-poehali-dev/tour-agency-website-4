@@ -194,11 +194,17 @@ const Index = () => {
               <a href="#reviews" className="text-foreground hover:text-accent transition-colors font-medium">Отзывы</a>
               <a href="#contact" className="text-foreground hover:text-accent transition-colors font-medium">Контакты</a>
             </div>
-            <div className="flex items-center gap-4">
-              <a href="tel:+79094264040" className="hidden lg:flex items-center gap-2 text-foreground hover:text-accent transition-colors font-medium">
-                <Icon name="Phone" size={18} />
-                <span>+7 909 426-40-40</span>
-              </a>
+            <div className="flex items-center gap-3">
+              <div className="hidden xl:flex flex-col items-end text-sm">
+                <a href="tel:+79094264040" className="flex items-center gap-1 text-foreground hover:text-accent transition-colors font-medium">
+                  <Icon name="Phone" size={16} />
+                  <span>+7 909 426-40-40</span>
+                </a>
+                <a href="tel:+79165005500" className="flex items-center gap-1 text-foreground hover:text-accent transition-colors font-medium">
+                  <Icon name="Phone" size={16} />
+                  <span>+7 916 500-55-00</span>
+                </a>
+              </div>
               <a 
                 href="https://wa.me/79094264040?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%B7%D0%B0%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%B5%20%D1%82%D1%83%D1%80%D0%B0.%20%D0%9F%D0%BE%D0%BC%D0%BE%D0%B6%D0%B5%D1%82%D0%B5%20%D0%BC%D0%BD%D0%B5%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D0%B8%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D1%83%D1%82%D0%B5%D1%88%D0%B5%D1%81%D1%82%D0%B2%D0%B8%D0%B5%3F" 
                 target="_blank" 
@@ -252,21 +258,33 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-between pt-2 border-t">
-                <div>
-                  <p className="text-xs text-muted-foreground">Специальная цена</p>
-                  <p className="text-xl font-bold text-accent">{notificationDeal.priceFormatted}</p>
+              <div className="flex flex-col gap-2 pt-2 border-t">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-muted-foreground">Специальная цена</p>
+                    <p className="text-xl font-bold text-accent">{notificationDeal.priceFormatted}</p>
+                  </div>
+                  <Button 
+                    size="sm" 
+                    className="bg-accent hover:bg-accent/90 text-white"
+                    onClick={() => {
+                      handleBooking(notificationDeal);
+                      setShowNotification(false);
+                    }}
+                  >
+                    Забронировать
+                  </Button>
                 </div>
-                <Button 
-                  size="sm" 
-                  className="bg-accent hover:bg-accent/90 text-white"
-                  onClick={() => {
-                    handleBooking(notificationDeal);
-                    setShowNotification(false);
-                  }}
+                <a
+                  href={`https://wa.me/79094264040?text=${encodeURIComponent(`🔥 Здравствуйте! Увидел(а) горящий тур "${notificationDeal.title}" за ${notificationDeal.priceFormatted}. Хочу забронировать! Когда могу вылететь?`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white py-2 rounded-lg transition-colors text-sm"
+                  onClick={() => setShowNotification(false)}
                 >
-                  Забронировать
-                </Button>
+                  <Icon name="MessageCircle" size={14} />
+                  Написать в WhatsApp
+                </a>
               </div>
             </CardContent>
           </Card>
@@ -347,17 +365,28 @@ const Index = () => {
                       <p className="text-sm text-muted-foreground">{deal.description}</p>
                     </div>
                   </CardContent>
-                  <CardFooter className="flex items-center justify-between pt-4 border-t">
-                    <div>
-                      <p className="text-sm text-muted-foreground">Специальная цена</p>
-                      <p className="text-2xl font-bold text-accent">{deal.priceFormatted}</p>
+                  <CardFooter className="flex flex-col gap-3 pt-4 border-t">
+                    <div className="flex items-center justify-between w-full">
+                      <div>
+                        <p className="text-sm text-muted-foreground">Специальная цена</p>
+                        <p className="text-2xl font-bold text-accent">{deal.priceFormatted}</p>
+                      </div>
+                      <Button 
+                        className="bg-accent hover:bg-accent/90 text-white"
+                        onClick={() => handleBooking(deal)}
+                      >
+                        Успеть!
+                      </Button>
                     </div>
-                    <Button 
-                      className="bg-accent hover:bg-accent/90 text-white"
-                      onClick={() => handleBooking(deal)}
+                    <a
+                      href={`https://wa.me/79094264040?text=${encodeURIComponent(`🔥 Здравствуйте! Увидел(а) горящий тур "${deal.title}" за ${deal.priceFormatted}. Хочу узнать подробности и забронировать!`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white py-2 rounded-lg transition-colors"
                     >
-                      Успеть!
-                    </Button>
+                      <Icon name="MessageCircle" size={16} />
+                      WhatsApp
+                    </a>
                   </CardFooter>
                 </Card>
               ))}
@@ -711,28 +740,63 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             <Card className="text-center">
               <CardContent className="pt-6">
                 <Icon name="Phone" size={32} className="text-accent mx-auto mb-3" />
-                <p className="font-medium mb-1">Телефон</p>
-                <a href="tel:+79094264040" className="text-accent hover:underline font-medium">
-                  +7 909 426-40-40
-                </a>
+                <p className="font-medium mb-2">Телефоны</p>
+                <div className="space-y-1">
+                  <a href="tel:+79094264040" className="block text-accent hover:underline font-medium">
+                    +7 909 426-40-40
+                  </a>
+                  <a href="tel:+79165005500" className="block text-accent hover:underline font-medium">
+                    +7 916 500-55-00
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardContent className="pt-6">
+                <Icon name="MessageCircle" size={32} className="text-[#25D366] mx-auto mb-3" />
+                <p className="font-medium mb-2">WhatsApp</p>
+                <div className="space-y-1">
+                  <a 
+                    href="https://wa.me/79094264040?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%B7%D0%B0%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%B5%20%D1%82%D1%83%D1%80%D0%B0.%20%D0%9F%D0%BE%D0%BC%D0%BE%D0%B6%D0%B5%D1%82%D0%B5%20%D0%BC%D0%BD%D0%B5%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D0%B8%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D1%83%D1%82%D0%B5%D1%88%D0%B5%D1%81%D1%82%D0%B2%D0%B8%D0%B5%3F"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-[#25D366] hover:underline font-medium"
+                  >
+                    +7 909 426-40-40
+                  </a>
+                  <a 
+                    href="https://wa.me/79165005500?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%AF%20%D0%B7%D0%B0%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%BE%D0%B2%D0%B0%D0%BD%20%D0%B2%20%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%B5%20%D1%82%D1%83%D1%80%D0%B0.%20%D0%9F%D0%BE%D0%BC%D0%BE%D0%B6%D0%B5%D1%82%D0%B5%20%D0%BC%D0%BD%D0%B5%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D0%B8%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%D0%BF%D1%83%D1%82%D0%B5%D1%88%D0%B5%D1%81%D1%82%D0%B2%D0%B8%D0%B5%3F"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-[#25D366] hover:underline font-medium"
+                  >
+                    +7 916 500-55-00
+                  </a>
+                </div>
               </CardContent>
             </Card>
             <Card className="text-center">
               <CardContent className="pt-6">
                 <Icon name="Mail" size={32} className="text-accent mx-auto mb-3" />
-                <p className="font-medium mb-1">Email</p>
-                <p className="text-muted-foreground">info@sletayka.ru</p>
+                <p className="font-medium mb-2">Email</p>
+                <a href="mailto:info@sletayka.ru" className="text-accent hover:underline">
+                  info@sletayka.ru
+                </a>
               </CardContent>
             </Card>
             <Card className="text-center">
               <CardContent className="pt-6">
                 <Icon name="MapPin" size={32} className="text-accent mx-auto mb-3" />
-                <p className="font-medium mb-1">Адрес</p>
-                <p className="text-muted-foreground">Москва, ул. Примерная, 1</p>
+                <p className="font-medium mb-2">Адрес</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  г. Дмитров, ул. Советская д.5,<br/>
+                  офис № 83<br/>
+                  <span className="text-xs">(вход со стороны Лента)</span>
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -770,9 +834,19 @@ const Index = () => {
             <div>
               <h3 className="font-serif font-bold mb-4">Контакты</h3>
               <ul className="space-y-2 text-white/70">
-                <li>+7 (495) 123-45-67</li>
-                <li>info@sletayka.ru</li>
-                <li>Москва, ул. Примерная, 1</li>
+                <li>
+                  <a href="tel:+79094264040" className="hover:text-accent transition-colors">+7 909 426-40-40</a>
+                </li>
+                <li>
+                  <a href="tel:+79165005500" className="hover:text-accent transition-colors">+7 916 500-55-00</a>
+                </li>
+                <li>
+                  <a href="mailto:info@sletayka.ru" className="hover:text-accent transition-colors">info@sletayka.ru</a>
+                </li>
+                <li className="text-sm leading-relaxed">
+                  г. Дмитров, ул. Советская д.5, офис № 83<br/>
+                  <span className="text-xs">(вход со стороны Лента)</span>
+                </li>
               </ul>
             </div>
           </div>
