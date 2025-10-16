@@ -299,15 +299,84 @@ const Index = () => {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Создаём незабываемые впечатления для взыскательных путешественников
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg">
-              Подобрать тур
-              <Icon name="ArrowRight" size={20} className="ml-2" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-6 text-lg">
-              Консультация
-            </Button>
-          </div>
+          
+          <Card className="max-w-5xl mx-auto shadow-2xl border-2">
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div className="lg:col-span-1">
+                  <label className="block text-sm font-medium text-left mb-2">Направление</label>
+                  <select className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-accent focus:outline-none transition-colors bg-white">
+                    <option>Куда едем?</option>
+                    <option>🏝️ Мальдивы</option>
+                    <option>🗼 Европа</option>
+                    <option>🏯 Азия</option>
+                    <option>🗽 Америка</option>
+                    <option>🦁 Африка</option>
+                    <option>🏖️ Карибы</option>
+                    <option>🏔️ Горы</option>
+                  </select>
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <label className="block text-sm font-medium text-left mb-2">Дата вылета</label>
+                  <input 
+                    type="date" 
+                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-accent focus:outline-none transition-colors"
+                  />
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <label className="block text-sm font-medium text-left mb-2">Ночей</label>
+                  <select className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-accent focus:outline-none transition-colors bg-white">
+                    <option>7 ночей</option>
+                    <option>3-4 ночи</option>
+                    <option>5-6 ночей</option>
+                    <option>7-9 ночей</option>
+                    <option>10-14 ночей</option>
+                    <option>14+ ночей</option>
+                  </select>
+                </div>
+                
+                <div className="lg:col-span-1">
+                  <label className="block text-sm font-medium text-left mb-2">Туристы</label>
+                  <select className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-accent focus:outline-none transition-colors bg-white">
+                    <option>2 взрослых</option>
+                    <option>1 взрослый</option>
+                    <option>2 взрослых</option>
+                    <option>2 взр + 1 ребенок</option>
+                    <option>2 взр + 2 детей</option>
+                    <option>3 взрослых</option>
+                    <option>4 взрослых</option>
+                  </select>
+                </div>
+                
+                <div className="lg:col-span-1 flex items-end">
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-white py-3 h-[52px] text-base font-semibold">
+                    <Icon name="Search" size={18} className="mr-2" />
+                    Найти тур
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="flex flex-wrap gap-3 mt-6 justify-center">
+                <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-accent hover:text-white transition-colors text-sm font-medium">
+                  🔥 Горящие туры
+                </button>
+                <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-accent hover:text-white transition-colors text-sm font-medium">
+                  ✈️ Раннее бронирование
+                </button>
+                <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-accent hover:text-white transition-colors text-sm font-medium">
+                  🏖️ Пляжный отдых
+                </button>
+                <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-accent hover:text-white transition-colors text-sm font-medium">
+                  🎿 Горнолыжные туры
+                </button>
+                <button className="px-4 py-2 rounded-full bg-gray-100 hover:bg-accent hover:text-white transition-colors text-sm font-medium">
+                  🏛️ Экскурсионные туры
+                </button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
