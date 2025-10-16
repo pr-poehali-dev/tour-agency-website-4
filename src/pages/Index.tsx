@@ -28,78 +28,33 @@ const Index = () => {
   const [calculatorComfort, setCalculatorComfort] = useState('standard');
 
   const tours = [
-    {
-      id: 1,
-      title: 'Мальдивы Премиум',
-      destination: 'Мальдивы',
-      country: 'maldives',
-      price: 450000,
-      priceFormatted: '450 000 ₽',
-      duration: '7 дней',
-      image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg',
-      description: 'Роскошный отдых на белоснежных пляжах с частным бунгало над водой',
-      category: 'beach'
-    },
-    {
-      id: 2,
-      title: 'Европейский Шик',
-      destination: 'Париж-Рим-Венеция',
-      country: 'europe',
-      price: 320000,
-      priceFormatted: '320 000 ₽',
-      duration: '10 дней',
-      image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg',
-      description: 'Погружение в европейскую культуру с проживанием в отелях класса люкс',
-      category: 'culture'
-    },
-    {
-      id: 3,
-      title: 'Альпийская Роскошь',
-      destination: 'Швейцария',
-      country: 'europe',
-      price: 580000,
-      priceFormatted: '580 000 ₽',
-      duration: '5 дней',
-      image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/0e47a49c-602b-46bd-9b38-422c14345e66.jpg',
-      description: 'Эксклюзивный горнолыжный курорт с личным инструктором и спа',
-      category: 'mountains'
-    },
-    {
-      id: 4,
-      title: 'Экзотика Бали',
-      destination: 'Бали',
-      country: 'asia',
-      price: 280000,
-      priceFormatted: '280 000 ₽',
-      duration: '8 дней',
-      image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg',
-      description: 'Тропический рай с древними храмами и роскошными спа',
-      category: 'beach'
-    },
-    {
-      id: 5,
-      title: 'Нью-Йорк Роскошный',
-      destination: 'США',
-      country: 'america',
-      price: 420000,
-      priceFormatted: '420 000 ₽',
-      duration: '6 дней',
-      image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg',
-      description: 'Манхэттен, шопинг и мишленовские рестораны',
-      category: 'culture'
-    },
-    {
-      id: 6,
-      title: 'Токийский Стиль',
-      destination: 'Япония',
-      country: 'asia',
-      price: 520000,
-      priceFormatted: '520 000 ₽',
-      duration: '9 дней',
-      image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg',
-      description: 'Традиции и технологии в элитных отелях',
-      category: 'culture'
-    }
+    { id: 1, title: 'Мальдивы Deluxe', destination: 'Мальдивы', country: 'maldives', price: 450000, priceFormatted: '450 000 ₽', duration: '7 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Водные бунгало 5★, снорклинг, SPA', category: 'beach' },
+    { id: 2, title: 'Париж + Рим', destination: 'Франция + Италия', country: 'europe', price: 320000, priceFormatted: '320 000 ₽', duration: '10 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Экскурсии, музеи, мишленовские рестораны', category: 'culture' },
+    { id: 3, title: 'Швейцарские Альпы', destination: 'Швейцария', country: 'europe', price: 580000, priceFormatted: '580 000 ₽', duration: '5 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/0e47a49c-602b-46bd-9b38-422c14345e66.jpg', description: 'Горные лыжи, шале люкс, частный инструктор', category: 'mountains' },
+    { id: 4, title: 'Бали Тропик', destination: 'Индонезия', country: 'asia', price: 280000, priceFormatted: '280 000 ₽', duration: '8 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Пляжи, храмы, йога, балийский массаж', category: 'beach' },
+    { id: 5, title: 'Нью-Йорк VIP', destination: 'США', country: 'america', price: 420000, priceFormatted: '420 000 ₽', duration: '6 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Манхэттен, Бродвей, шопинг на 5-й авеню', category: 'culture' },
+    { id: 6, title: 'Токио + Киото', destination: 'Япония', country: 'asia', price: 520000, priceFormatted: '520 000 ₽', duration: '9 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Сакура, онсэн, традиционные рёканы', category: 'culture' },
+    { id: 7, title: 'Дубай Премиум', destination: 'ОАЭ', country: 'asia', price: 380000, priceFormatted: '380 000 ₽', duration: '7 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Небоскрёбы, пляжи, Dubai Mall, сафари', category: 'beach' },
+    { id: 8, title: 'Сейшелы Эксклюзив', destination: 'Сейшелы', country: 'maldives', price: 650000, priceFormatted: '650 000 ₽', duration: '10 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Райские острова, дайвинг, приватные виллы', category: 'beach' },
+    { id: 9, title: 'Испания + Португалия', destination: 'Иберия', country: 'europe', price: 295000, priceFormatted: '295 000 ₽', duration: '12 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Барселона, Мадрид, Лиссабон, Порту', category: 'culture' },
+    { id: 10, title: 'Таиланд Классик', destination: 'Таиланд', country: 'asia', price: 185000, priceFormatted: '185 000 ₽', duration: '9 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Пхукет, Бангкок, экскурсии, тайский массаж', category: 'beach' },
+    { id: 11, title: 'Греция Острова', destination: 'Греция', country: 'europe', price: 240000, priceFormatted: '240 000 ₽', duration: '8 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Санторини, Крит, белые домики, море', category: 'beach' },
+    { id: 12, title: 'Австрия Горная', destination: 'Австрия', country: 'europe', price: 315000, priceFormatted: '315 000 ₽', duration: '6 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/0e47a49c-602b-46bd-9b38-422c14345e66.jpg', description: 'Тироль, катание на лыжах, альпийская кухня', category: 'mountains' },
+    { id: 13, title: 'Турция All Inclusive', destination: 'Турция', country: 'asia', price: 145000, priceFormatted: '145 000 ₽', duration: '7 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Анталия 5★, всё включено, аквапарк, хамам', category: 'beach' },
+    { id: 14, title: 'Прага + Вена', destination: 'Чехия + Австрия', country: 'europe', price: 195000, priceFormatted: '195 000 ₽', duration: '7 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Старая Европа, замки, музеи, кафе', category: 'culture' },
+    { id: 15, title: 'Шри-Ланка Эко', destination: 'Шри-Ланка', country: 'asia', price: 220000, priceFormatted: '220 000 ₽', duration: '10 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Джунгли, слоны, чайные плантации, океан', category: 'beach' },
+    { id: 16, title: 'Канада Горы', destination: 'Канада', country: 'america', price: 475000, priceFormatted: '475 000 ₽', duration: '8 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/0e47a49c-602b-46bd-9b38-422c14345e66.jpg', description: 'Ванкувер, Скалистые горы, озёра, природа', category: 'mountains' },
+    { id: 17, title: 'Мексика Карибы', destination: 'Мексика', country: 'america', price: 365000, priceFormatted: '365 000 ₽', duration: '9 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/24a87b57-c32e-4592-a4b2-835aba31e914.jpg', description: 'Канкун, Майя, сеноты, текила, пляжи', category: 'beach' },
+    { id: 18, title: 'Скандинавия 4 страны', destination: 'Скандинавия', country: 'europe', price: 390000, priceFormatted: '390 000 ₽', duration: '11 дней', image: 'https://cdn.poehali.dev/projects/ea4c3f24-08ba-472c-8695-daadf72c5465/files/4201e134-950f-43a2-b3c5-33dd2890385e.jpg', description: 'Норвегия, Швеция, Дания, Финляндия', category: 'culture' }
+  ];
+
+  const services = [
+    { id: 1, title: 'Визы', icon: 'FileText', description: 'Оформление туристических, рабочих и бизнес-виз', price: 'от 5 000 ₽' },
+    { id: 2, title: 'Карты АТС', icon: 'CreditCard', description: 'Азиатские платёжные карты для путешествий', price: 'от 3 000 ₽' },
+    { id: 3, title: 'Гражданство', icon: 'Award', description: 'Консультации по получению второго гражданства', price: 'от 50 000 ₽' },
+    { id: 4, title: 'ПМЖ', icon: 'Home', description: 'Программы постоянного места жительства', price: 'от 100 000 ₽' },
+    { id: 5, title: 'ВНЖ', icon: 'Briefcase', description: 'Вид на жительство в Европе, Азии, Америке', price: 'от 75 000 ₽' },
+    { id: 6, title: 'Страхование', icon: 'Shield', description: 'Медицинская страховка для путешествий', price: 'от 1 000 ₽' }
   ];
 
   const filteredTours = tours.filter(tour => {
@@ -162,13 +117,13 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Icon name="Plane" size={28} className="text-accent" />
-              <span className="text-2xl font-serif font-bold text-primary">Слетайка.ру</span>
+              <span className="text-2xl font-handwriting font-bold text-primary">Слетайка.ру</span>
             </div>
             <div className="hidden md:flex items-center gap-8">
               <a href="#home" className="text-foreground hover:text-accent transition-colors font-medium">Главная</a>
               <a href="#tours" className="text-foreground hover:text-accent transition-colors font-medium">Туры</a>
+              <a href="#services" className="text-foreground hover:text-accent transition-colors font-medium">Услуги</a>
               <a href="#destinations" className="text-foreground hover:text-accent transition-colors font-medium">Направления</a>
-              <a href="#about" className="text-foreground hover:text-accent transition-colors font-medium">О компании</a>
               <a href="#reviews" className="text-foreground hover:text-accent transition-colors font-medium">Отзывы</a>
               <a href="#contact" className="text-foreground hover:text-accent transition-colors font-medium">Контакты</a>
             </div>
@@ -182,7 +137,7 @@ const Index = () => {
 
       <section id="home" className="pt-32 pb-20 px-4 animate-fade-in">
         <div className="container mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-primary mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-handwriting font-bold text-primary mb-6 leading-tight">
             Путешествия<br />вашей мечты
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -203,7 +158,7 @@ const Index = () => {
       <section id="tours" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Избранные туры</h2>
+            <h2 className="text-4xl md:text-5xl font-handwriting font-bold text-primary mb-4">Избранные туры</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Эксклюзивные предложения для роскошного отдыха
             </p>
@@ -389,7 +344,7 @@ const Index = () => {
       <section id="destinations" className="py-20 px-4 bg-gradient-to-b from-muted/20 to-white">
         <div className="container mx-auto">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Популярные направления</h2>
+            <h2 className="text-4xl md:text-5xl font-handwriting font-bold text-primary mb-4">Популярные направления</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Откройте для себя лучшие места планеты
             </p>
@@ -411,10 +366,42 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="reviews" className="py-20 px-4 bg-white">
+      <section id="services" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Отзывы клиентов</h2>
+            <h2 className="text-4xl md:text-5xl font-handwriting font-bold text-primary mb-4">Дополнительные услуги</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Визы, гражданство, карты и другие сервисы для путешественников
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <Card key={service.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <CardHeader>
+                  <div className="mb-4 w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Icon name={service.icon as any} size={28} className="text-accent" />
+                  </div>
+                  <CardTitle className="text-xl font-handwriting">{service.title}</CardTitle>
+                  <CardDescription className="text-base">{service.description}</CardDescription>
+                </CardHeader>
+                <CardFooter className="flex items-center justify-between">
+                  <span className="text-lg font-bold text-accent">{service.price}</span>
+                  <Button variant="outline" size="sm">
+                    Подробнее
+                    <Icon name="ArrowRight" size={16} className="ml-2" />
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="reviews" className="py-20 px-4 bg-gradient-to-b from-muted/20 to-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-handwriting font-bold text-primary mb-4">Отзывы клиентов</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Истории наших путешественников
             </p>
@@ -444,7 +431,7 @@ const Index = () => {
       <section id="contact" className="py-20 px-4 bg-gradient-to-b from-muted/20 to-white">
         <div className="container mx-auto max-w-2xl">
           <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">Свяжитесь с нами</h2>
+            <h2 className="text-4xl md:text-5xl font-handwriting font-bold text-primary mb-4">Свяжитесь с нами</h2>
             <p className="text-lg text-muted-foreground">
               Мы подберём идеальный тур специально для вас
             </p>

@@ -72,6 +72,7 @@ export default {
 			fontFamily: {
 				sans: ['Open Sans', 'sans-serif'],
 				serif: ['Playfair Display', 'serif'],
+				handwriting: ['Caveat', 'cursive'],
 			},
 			keyframes: {
 				'accordion-down': {
