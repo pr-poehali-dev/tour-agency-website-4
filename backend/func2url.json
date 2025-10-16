@@ -1,3 +1,5 @@
 {
+  "get-tours": "https://functions.poehali.dev/b605e28f-e6ae-4aeb-a834-211663f79467",
+  "book-tour": "https://functions.poehali.dev/c1128ef4-597b-4175-837b-718edf0da020",
   "tours-scraper": "https://functions.poehali.dev/f1e6a4a9-eed3-48e5-be96-ca476549ccbe"
 }

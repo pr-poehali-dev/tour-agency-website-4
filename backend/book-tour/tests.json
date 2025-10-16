@@ -1,0 +1,38 @@
+{
+  "tests": [
+    {
+      "name": "Create booking successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "tourId": "3549",
+        "name": "Иван Иванов",
+        "email": "ivan@example.com",
+        "phone": "+7 909 123-45-67",
+        "tourists": "2 человека",
+        "comment": "Хочу забронировать этот тур"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "bookingNumber": "string",
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Reject booking with missing fields",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "tourId": "3549",
+        "name": "Иван"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
